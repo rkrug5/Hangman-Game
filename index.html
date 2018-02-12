@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
 <title>Hangman</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
 
 <link rel="stylesheet"  href="assets/css/reset.css"/>
 <link rel="stylesheet"  href="assets/css/style.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
 
 <style>
 .jumbotron {
@@ -26,10 +29,18 @@ font-size: 20px;
 	font-size: 30px;
 }
 
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #8064A2 !important;
+}
+
+#reset {
+	 background-color: #8064A2
+}
+
 </style>
 
-
 </head>
+
 <body>
  <!-- Overall Bootstrap Grid -->
   <div class="container">
@@ -48,7 +59,7 @@ font-size: 20px;
     <div class="row">
 
       <!-- Left Panel -->
-      <div class="col-lg-6">
+      <div class="col-sm-6">
 
 		<div class="panel panel-default">
           <div class="panel-heading">
@@ -56,7 +67,7 @@ font-size: 20px;
           </div>
           <div class="panel-body">
             <div class="text-center">
-           <h3 id="wordToGuess"></h3>
+           <h3 id="wordToGuess">_ _ _ _ _ _ _</h3>
             </div>
           </div>
         </div>
@@ -84,6 +95,12 @@ font-size: 20px;
             </div>
           </div>
         </div>
+	 </div>
+
+ <!-- Right Panel -->
+     <div class="col-sm-6">
+
+
 
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -107,18 +124,20 @@ font-size: 20px;
             </div>
           </div>
         </div>
-		
+	 </div>
 
         <button class="btn btn-lg btn-success" id="play-again">Play again?</button>
-
-   		</div>
-	<div class="wordGoesHere">
+		<button class="btn btn-lg " id="themechanger">New Theme</button>
+		<button class="btn btn-lg " id="reset">Reset</button>
+		<button class="btn btn-lg btn-success" id="reset">Reset</button>
+   	<!-- 	</div>
+	<div class="wordGoesHere"
 			<p id="word">word</p>
 			
 	</div>
 	<div id="currentWord">
 	<p>stuff</p>
-	</div>
+	</div> -->
 	
 <!-- 
 	<div class="randomButton">
@@ -141,24 +160,34 @@ var wins = 0;
 var losses = 0;
 var guessesLeft = 9;
 var word = 0;
+var input = [];
+var blanksAndCorrectLetters = [];
 
 
 
 
-console.log(word);
+// console.log(word);
 
-document.getElementById("#currentWord").innerHTML = word;
+// document.getElementById("currentWord").innerHTML = word;
 
-lettersInWord = word.split("");
 
-console.log(lettersInWord);
 
-numberOfBlanks = lettersInWord.length;
+// console.log(lettersInWord);
 
-console.log(numberOfBlanks);
+
+
+// console.log(numberOfBlanks);
 
 
 function reset() {
+
+
+lettersInWord = word.split("");
+console.log(lettersInWord);
+
+
+numberOfBlanks = lettersInWord.length;
+console.log(numberOfBlanks);
 
 lettersGuessed = [];
 guessesLeft = 9;
@@ -180,7 +209,7 @@ lettersGuessed = [];
 letters = ["a", "b","c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 //show the blanks for the current word
-	for (var i = 0, i < numberOfBlanks; i++) {
+	for (var i = 0; i < numberOfBlanks; i++) {
 
 	blanksAndCorrectLetters.push("_");
 	document.getElementById("wordToGuess").innerHTML = blanksAndCorrectLetters;
@@ -254,6 +283,7 @@ document.onkeyup = function(event) {
 	 	if (lettersGuessed === letters[i]) {
 
 	 		compareLetters(lettersGuessed);
+	 		winLose();
 	 	}
 	 }
 }
