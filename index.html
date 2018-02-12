@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Hangman</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<link rel="stylesheet"  href="assets/css/reset.css"/>
+<link rel="stylesheet"  href="assets/css/style.css"/>
+
+<style>
+.jumbotron {
+
+	background-image: url(assets/images/hangman2.jpg);
+}
+h1{
+	width: 30%;
+	background-color: white;
+	text-align: center;
+}
+.text-center {
+font-weight: bold;
+font-size: 20px;
+}
+#word {
+	text-align: center;
+	font-size: 30px;
+}
+
+</style>
+
+
+</head>
+<body>
+ <!-- Overall Bootstrap Grid -->
+  <div class="container">
+
+    <!-- Jumbotron with Title -->
+    <div class="jumbotron">
+      <h1 class="text-center">Hangman</h1>
+      <!-- <h4 class="text-center">For word nerds, by word nerds</h4> -->
+      <!-- <hr> -->
+      <div class="text-center">
+        <!-- <button class="btn btn-warning btn-xs theme-button"><span class="glyphicon glyphicon-music"></span> Play Theme!</button>
+        <button class="btn btn-default btn-xs pause-button"><span class="glyphicon glyphicon-pause"></span> Pause Song</button> -->
+      </div>
+
+    </div>
+    <div class="row">
+
+      <!-- Left Panel -->
+      <div class="col-lg-6">
+
+		<div class="panel panel-default">
+          <div class="panel-heading">
+            <h5 class="panel-title">Word to Guess:</h5>
+          </div>
+          <div class="panel-body">
+            <div class="text-center">
+           <h3 id="wordToGuess"></h3>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h5 class="panel-title">Guesses Left:</h5>
+          </div>
+          <div class="panel-body">
+            <div class="text-center">
+           <h3 id="guessesLeft">9</h3>
+            </div>
+          </div>
+        </div>
+
+
+		 <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Letters Guessed:</h3>
+          </div>
+          <div class="panel-body">
+            <div class="text-center">
+             <p id="lettersGuessed"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Wins:</h3>
+          </div>
+          <div class="panel-body">
+            <div class="text-center">
+             <h3 id="wins">0</h3>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Losses:</h3>
+          </div>
+          <div class="panel-body">
+            <div class="text-center">
+             <h3 id="losses">0</h3>
+            </div>
+          </div>
+        </div>
+		
+
+        <button class="btn btn-lg btn-success" id="play-again">Play again?</button>
+
+   		</div>
+	<div class="wordGoesHere">
+			<p id="word">word</p>
+			
+	</div>
+	<div id="currentWord">
+	<p>stuff</p>
+	</div>
+	
+<!-- 
+	<div class="randomButton">
+  	<button class="btn btn-lg btn-primary" id="random">Press me!</button>
+  	<button class="btn btn-lg btn-danger" id="random">Press me!</button>
+	</div> -->
+
+
+</div>
+
+
+
+<script>
+	
+var letters = ["a", "b","c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+var wordList = ["apple", "banana", "cherry", "mango"];
+var lettersInWord = [];
+var numberOfBlanks = 0;
+var wins = 0;
+var losses = 0;
+var guessesLeft = 9;
+var word = 0;
+
+
+
+
+console.log(word);
+
+document.getElementById("#currentWord").innerHTML = word;
+
+lettersInWord = word.split("");
+
+console.log(lettersInWord);
+
+numberOfBlanks = lettersInWord.length;
+
+console.log(numberOfBlanks);
+
+
+function reset() {
+
+lettersGuessed = [];
+guessesLeft = 9;
+word = wordList[Math.floor(Math.random() * wordList.length)];
+wins = 0;
+losses = 0;
+letters = ["a", "b","c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+startGame();
+
+}
+
+function startGame() {
+
+word = wordList[Math.floor(Math.random() * wordList.length)];
+lettersInWord = word.split("");
+numberOfBlanks = lettersInWord.length;
+guessesLeft = 9;
+lettersGuessed = [];
+letters = ["a", "b","c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+//show the blanks for the current word
+	for (var i = 0, i < numberOfBlanks; i++) {
+
+	blanksAndCorrectLetters.push("_");
+	document.getElementById("wordToGuess").innerHTML = blanksAndCorrectLetters;
+
+	}
+
+document.getElementById('wordToGuess').innerHTML = blanksAndCorrectLetters.join(' ');
+document.getElementById('guessesLeft').innerHTML = guessesLeft;
+document.getElementById('wins').innerHTML = wins;
+document.getElementById('losses').innerHTML = losses;
+document.getElementById('lettersGuessed').innerHTML = lettersGuessed;
+
+}
+
+
+function compareLetters(userKey) {
+
+if (word.indexOf(userKey) > -1)
+
+	for (var i = 0; i < numberOfBlanks; i++) {
+
+		if(lettersInWord[i] === userKey) {
+
+			blanksAndCorrectLetters[i] = userKey;
+			document.getElementById("wordToGuess").innerHTML = blanksAndCorrectLetters.join(" ");
+		}
+
+	}
+
+else {
+
+	lettersGuessed.push(userKey);
+	guessesLeft--;
+	document.getElementById("guessesLeft").innerHTML = guessesLeft;
+	document.getElementById("lettersGuessed").innerHTML = lettersGuessed;
+
+}
+}
+
+// function checkWinCondition () {
+
+
+
+// if (guessesLeft === 0) {
+
+// 	alert("Sorry, you lost! Better luck next time! :-)");
+// }
+
+
+// }
+
+
+
+
+
+
+
+
+
+
+
+startGame();
+
+
+document.onkeyup = function(event) {
+      
+	 var lettersGuessed = event.key;
+	 
+	 for (var i = 0; i < letters.length; i++) {
+
+	 	if (lettersGuessed === letters[i]) {
+
+	 		compareLetters(lettersGuessed);
+	 	}
+	 }
+}
+
+
+
+
+</script>
+   
+	
+<!-- 
+new pseudocode:
+
+1.  pick a word
+2. check user input
+	-onkeyup -everything happens inside or calls based on this
+	-check key and store it
+	-check to see if it is a letter
+		-if yes, add it to list of guessed letters, if no, do nothing
+			-array of letters, if part list !== -1
+			word.split('')
+			arr.join('_')
+	if index of letter in array === -1 
+			incorrect guess
+			else, correct guess
+3. see if part of the word
+
+		2 functions 
+
+4.  give feedback
+5. check for win or loss
+	if the correct guesses array is the same length as the word array, signal a win
+	if number of guesses left = 0, signal a loss -->
+
+<!--  things to do:
+0.  start game, press 'enter' to start.  
+1. computer picks a word at random from a list/array
+
+found partial - (https://stackoverflow.com/questions/16017657) -->
+
+<!-- 	 function chooseWord = ["apple", "banana", "cherry", "mango"] -->
+
+	
+		<!-- var wordList = ["apple", "banana", "cherry", "mango"]; -->
+		<!-- var randInt = randomGenerator(0, array.length - 1); -->
+		<!-- var item = array[randInt]; -->
+		<!-- var textbox = document.getElementById("textbox_id").value = randInt; -->
+
+
+
+<!--  1.a. displays blanks/tiles for the letters
+for the word chosen, treat it as a string, then stringlength = # of letters
+
+2. user guesses a letter by key press
+
+3. event listener checks to see if letter is part of solution
+
+4.a. on success, fills in that letter
+
+
+4.b. on fail, either reduces lives by one or add a hangman part
+
+try again button 
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
